@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <div class="img_zhanwei">
+        <div class="img_box">
+            <img src="__IMG__/prove.png" class="yushow zheng" />
+            <div class="btn_uploading"></div>
+        </div>
+        <input type="file" id="imgID" name="img_front" style="display:none;" onchange="previewImg(this);" class="upload" accept="image/*"
+        />
+
+    </div>
+</body>
+<script>
+    function previewImg(imgFile) {
+        var num = $(imgFile)[0].i;
+        var extension = imgFile.value.substring(
+            imgFile.value.lastIndexOf("."),
+            imgFile.value.length
+        ); //扩展名
+        extension = extension.toLowerCase(); //把文件扩展名转换为小写
+        var file = imgFile.files[0]; //文件对象
+        var size = file.size; //图片大小
+
+        if (size > 1048576) {
+            $(".tip_red")[num].style.color = "red";
+            return false;
+        } else {
+            $(".tip_red")[num].style.color = "#5e6773";
+        }
+        if (extension != ".jpg" && extension != ".gif" && extension != ".png") {
+            $(".tip_red_geshi")[num].style.color = "red";
+            return false;
+        } else {
+            var path;
+            // 把颜色变回原来的颜色
+            $(".tip_red_geshi")[num].style.color = "#5e6773";
+
+            path = window.URL.createObjectURL(imgFile.files[0]);
+
+            // 隐藏添加图标
+            // $(".btn_uploading")[num].style.display = "none";
+            //设置预览地址
+            $(".yushow")[num].src = path;
+        }
+    }
+
+</script>
+
+</html>

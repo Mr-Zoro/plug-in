@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+
+<script>
+$(function () {
+    Highcharts.setOptions({
+        global : {
+            useUTC : false
+        }
+    });
+    // Create the chart
+    $('#container').highcharts('StockChart', {
+        chart : {
+            events : {
+                load : function () {
+                    // set up the updating of the chart each second
+                    var series = this.series[0];
+                    var series2 = this.series[1];
+                    var series3 = this.series[2];
+                    setInterval(function () {
+                        var x = (new Date()).getTime(), // current time
+                            y = Math.round(Math.random() * 200),
+                            x1 = (new Date()).getTime(), // current time
+                            y1 = Math.round(Math.random() * 200),
+                            x2 = (new Date()).getTime(), // current time
+                            y2 = Math.round(Math.random() * 200);
+                        series.addPoint([x, y], true, true);
+                        series2.addPoint([x1, y1], false, false);
+                        series3.addPoint([x2, y2], false, false);
+                    }, 1000);
+                }
+            }
+        },
+        rangeSelector: {
+            buttons: [{
+                count: 1,
+                type: 'minute',
+                text: '1M'
+            }, {
+                count: 5,
+                type: 'minute',
+                text: '5M'
+            }, {
+                type: 'all',
+                text: 'All'
+            }],
+            inputEnabled: false,
+            selected: 0
+        },
+        title : {
+            text : 'Live random data'
+        },
+        tooltip: {
+            split: false
+        },
+        exporting: {
+            enabled: false
+        },
+        bazaar:[{name:'aaa',y:'12'},
+                {name:'bbb',y:'60'},
+                {name:'ccc',y:'120'}],
+        series : [{
+            name : (function(){
+                let str = this.bazaar[0].name;
+                return str
+            }()),
+            data : (function () {
+                // generate an array of random data
+                let data = [], time = (new Date()).getTime(), i;
+                for (i = -999; i <= 0; i += 1) {
+                    data.push([
+                        time + i * 1000,
+                        Math.round(Math.random() * 100)
+                    ]);
+                }
+                return data;
+            }())
+        },{
+            name : '随机数据',
+            data : (function () {
+                // generate an array of random data
+                let data = [], time = (new Date()).getTime(), i;
+                for (i = -999; i <= 0; i += 1) {
+                    data.push([
+                        time + i * 1000,
+                        Math.round(Math.random() * 100)
+                    ]);
+                }
+                return data;
+            }())
+        },{
+            name : '随机数据',
+            data : (function () {
+                // generate an array of random data
+                let data = [], time = (new Date()).getTime(), i;
+                for (i = -999; i <= 0; i += 1) {
+                    data.push([
+                        time + i * 1000,
+                        Math.round(Math.random() * 100)
+                    ]);
+                }
+                return data;
+            }())
+        }]
+    });
+});
+</script>
+</html>
+
+
